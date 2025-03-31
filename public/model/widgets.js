@@ -10,7 +10,7 @@ class WidgetManager {
             { name: "Auditory Reaction Time", color: "#FFFFFF", icon: "fa-solid fa-feather", description: "Test your auditory reaction time.", link: "./view/pages/AuditoryReactionTimeActivity/AuditoryReactionTimeLanding.html", datalink: "./view/pages/AuditoryReactionTimeActivity/AuditoryReactionTimeData.html" },
             { name: "Suggestion Page", color: "#FFFFFF", icon: "fa-solid fa-pen", description: "Tell us any suggestions for activities or improvements on the web.", link: "./view/pages/ActivityWrittenResponseTemplate.html", datalink: "./view/pages/ActivityWrittenResponseData.html" },
             { name: "Chord Isolation Practice", color: "#FFFFFF", icon: "fa-solid fa-music", description: "Practice your triad isolation skills.", link: "./view/pages/ChordIsolationActivity/ChordIsolationActivityLanding.html", datalink: "./view/pages/ChordIsolationActivity/ChordIsolationActivityData.html" },
-            //
+            
         ];
     }
 }
