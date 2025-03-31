@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suggest an Activity</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <div id="header-placeholder"></div>
+    <script>
+        fetch("/view/header.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("header-placeholder").innerHTML = data;
+                const script = document.createElement("script");
+                script.src = "/public/controller/header.js";
+                script.onload = () => console.log("header.js loaded successfully.");
+                document.body.appendChild(script);
+            })
+            .catch(error => console.error("Error loading header:", error));
+    </script>
+</head>
+<body>
+    <h2>Suggest a New Activity or Web App Improvement</h2>
+    <p>We value your input! Use the form below to share your ideas.</p>
+    
+    <label for="suggestion-category">Category:</label>
+    <select id="suggestion-category">
+        <option value="new-activity">New Activity Idea</option>
+        <option value="improvement">Web App Improvement</option>
+    </select>
+    
+    <textarea id="suggestion-box" rows="5" placeholder="Describe your idea..."></textarea><br>
+    
+    <button id="save-suggestion">Save & Edit Later</button>
+    <button id="submit-suggestion">Submit Suggestion</button>
+    
+    <p id="feedback-message" style="display: none;"></p>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const suggestionBox = document.getElementById("suggestion-box");
+            const categorySelect = document.getElementById("suggestion-category");
+            const savedSuggestion = localStorage.getItem("activitySuggestion");
+            const savedCategory = localStorage.getItem("suggestionCategory");
+
+            if (savedSuggestion) {
+                suggestionBox.value = savedSuggestion;
+            }
+            if (savedCategory) {
+                categorySelect.value = savedCategory;
+            }
+
+            document.getElementById("save-suggestion").addEventListener("click", function() {
+                localStorage.setItem("activitySuggestion", suggestionBox.value);
+                localStorage.setItem("suggestionCategory", categorySelect.value);
+                alert("Your suggestion has been saved. You can edit it later.");
+            });
+
+            document.getElementById("submit-suggestion").addEventListener("click", function() {
+                const suggestionText = suggestionBox.value.trim();
+                const category = categorySelect.value;
+                const feedbackMessage = document.getElementById("feedback-message");
+
+                if (suggestionText === "") {
+                    feedbackMessage.textContent = "Please enter a suggestion before submitting.";
+                    feedbackMessage.style.color = "red";
+                    feedbackMessage.style.display = "block";
+                } else {
+                    feedbackMessage.textContent = "Suggestion submitted successfully!";
+                    feedbackMessage.style.color = "green";
+                    feedbackMessage.style.display = "block";
+                    localStorage.removeItem("activitySuggestion");
+                    localStorage.removeItem("suggestionCategory");
+                    setTimeout(() => {
+                        window.location.href = "ActivityWrittenResponseTemplate_SubmissionPage.html";
+                    }, 1000);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

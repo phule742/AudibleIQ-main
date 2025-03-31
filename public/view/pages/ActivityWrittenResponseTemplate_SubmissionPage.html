@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submission Confirmation</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <div id="header-placeholder"></div>
+    <script>
+        fetch("/view/header.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("header-placeholder").innerHTML = data;
+
+                //Load and execute header.js after header is inserted
+                const script = document.createElement("script");
+                script.src = "/controller/header.js";
+                script.onload = () => console.log("header.js loaded successfully.");
+                document.body.appendChild(script);
+            })
+            .catch(error => console.error("Error loading header:", error));
+    </script>
+</head>
+
+<body>
+    <h2>Thank you for your submission!</h2>
+    <p>Your response has been recorded.</p>
+    <button onclick="location.href='/'">Return to Home</button>
+</body>
+
+</html>
